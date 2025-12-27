@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,9 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: null,
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('/dashboard');
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
               ),
@@ -53,4 +55,5 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-}
+} // End of class not fully replaced, need to ensure I capture enough lines or just replace the block I know.
+
