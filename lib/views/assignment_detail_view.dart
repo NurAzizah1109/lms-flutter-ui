@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 import '../models/assignment_model.dart';
 
 class AssignmentDetailView extends StatefulWidget {
@@ -14,8 +15,6 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
   bool _isUploading = false;
   String? _submittedFileName;
   DateTime? _submissionDate;
-
-  import 'dart:math';
 
   void _handleSubmission() async {
     final assignment = ModalRoute.of(context)!.settings.arguments as AssignmentModel;
@@ -273,7 +272,7 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: _isUploading ? null : _uploadFile,
+              onPressed: _isUploading ? null : _handleSubmission,
               icon: _isUploading
                   ? const SizedBox(
                       width: 20,
@@ -283,14 +282,10 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
                         color: Colors.white,
                       ),
                     )
-                  : Icon(_isSubmitted ? Icons.edit : Icons.upload_file),
-              label: Text(_isUploading
-                  ? 'Mengupload...'
-                  : _isSubmitted
-                      ? 'Ganti File'
-                      : 'Upload Tugas'),
+                  : Icon(_getIcon(assignment.type)),
+              label: Text(_getButtonLabel(assignment.type)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: _getButtonColor(assignment.type),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(

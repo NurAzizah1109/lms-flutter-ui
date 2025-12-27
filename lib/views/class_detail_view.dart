@@ -77,7 +77,145 @@ class ClassDetailView extends StatelessWidget {
     );
   }
 
-  // ... (Header, Info, Description, Progress Sections remain same)
+  Widget _buildHeader(ClassModel classModel) {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(20),
+        image: const DecorationImage(
+          image: NetworkImage('https://via.placeholder.com/600x300'), // Placeholder or use classModel.image if available
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black.withOpacity(0.8),
+              Colors.transparent,
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text(
+                'Ongoing',
+                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              classModel.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              '${classModel.instructor} • ${classModel.schedule}',
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoSection(ClassModel classModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildInfoItem(Icons.play_circle_fill, '12 Lessons', Colors.red),
+        _buildInfoItem(Icons.timer, '20 Hours', Colors.blue),
+        _buildInfoItem(Icons.star, '4.8 (2.1k)', Colors.orange),
+      ],
+    );
+  }
+
+  Widget _buildInfoItem(IconData icon, String label, Color color) {
+    return Column(
+      children: [
+        Icon(icon, color: color, size: 28),
+        const SizedBox(height: 5),
+        Text(
+          label,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDescriptionSection(ClassModel classModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          'About Course',
+           style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10),
+        Text(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+          style: TextStyle(color: Colors.grey, height: 1.5),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProgressSection(ClassModel classModel) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          CircularProgressIndicator(
+            value: classModel.progress / 100,
+            backgroundColor: Colors.grey[300],
+            color: Colors.blue,
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${classModel.progress}% Completed',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Keep up the good work!',
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildMaterialsSection(BuildContext context, List<ClassMaterialModel> materials) {
     return Column(
