@@ -17,7 +17,7 @@ class HomeView extends StatelessWidget {
               const SizedBox(height: 24),
 
               // 2. Shortcuts Section
-              _buildShortcuts(),
+              _buildShortcuts(context),
               const SizedBox(height: 24),
 
               // 3. Course Summary Section
@@ -70,35 +70,44 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildShortcuts() {
+  Widget _buildShortcuts(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _buildShortcutItem(Icons.book, 'Classes', Colors.orange),
-        _buildShortcutItem(Icons.assignment, 'Tasks', Colors.green),
-        _buildShortcutItem(Icons.notifications, 'Notice', Colors.red),
-        _buildShortcutItem(Icons.calendar_today, 'Schedule', Colors.purple),
+        _buildShortcutItem(Icons.book, 'Classes', Colors.orange, () {
+           // Basic navigation logic could be added here if needed, but Classes is in bottom nav usually
+        }),
+        _buildShortcutItem(Icons.assignment, 'Tasks', Colors.green, () {
+           Navigator.pushNamed(context, '/assignments');
+        }),
+        _buildShortcutItem(Icons.notifications, 'Notice', Colors.red, () {
+           // Notifies usually in bottom nav, but could nav there too
+        }),
+        _buildShortcutItem(Icons.calendar_today, 'Schedule', Colors.purple, () {}),
       ],
     );
   }
 
-  Widget _buildShortcutItem(IconData icon, String label, Color color) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
+  Widget _buildShortcutItem(IconData icon, String label, Color color, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 28),
           ),
-          child: Icon(icon, color: color, size: 28),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(fontWeight: FontWeight.w500),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
     );
   }
 
