@@ -17,20 +17,20 @@ class ClassDetailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(classModel),
             const SizedBox(height: 24),
-            _buildInfoSection(),
+            _buildInfoSection(classModel),
             const SizedBox(height: 24),
-            _buildDescriptionSection(),
+            _buildDescriptionSection(classModel),
             const SizedBox(height: 24),
-            _buildProgressSection(),
+            _buildProgressSection(classModel),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(ClassModel classModel) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
@@ -74,7 +74,7 @@ class ClassDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection() {
+  Widget _buildInfoSection(ClassModel classModel) {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -122,7 +122,7 @@ class ClassDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildDescriptionSection() {
+  Widget _buildDescriptionSection(ClassModel classModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -146,7 +146,7 @@ class ClassDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildProgressSection() {
+  Widget _buildProgressSection(ClassModel classModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
