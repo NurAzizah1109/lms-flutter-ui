@@ -12,6 +12,7 @@ class AssignmentsView extends StatelessWidget {
       AssignmentModel(
         id: '1',
         title: 'Tugas Kalkulus II',
+        description: 'Kerjakan soal latihan halaman 45-48, nomor ganjil saja. Scan hasil pengerjaan dan upload dalam format PDF.',
         type: AssignmentType.tugas,
         deadline: DateTime.now().add(const Duration(days: 2)),
         courseName: 'Matematika Dasar',
@@ -19,6 +20,7 @@ class AssignmentsView extends StatelessWidget {
       AssignmentModel(
         id: '2',
         title: 'Kuis Struktur Data',
+        description: 'Kuis online mengenai materi Linked List dan Stack. Waktu pengerjaan 45 menit.',
         type: AssignmentType.kuis,
         deadline: DateTime.now().add(const Duration(hours: 5)),
         courseName: 'Algoritma & Pemrograman',
@@ -26,6 +28,7 @@ class AssignmentsView extends StatelessWidget {
       AssignmentModel(
         id: '3',
         title: 'Laporan Praktikum Fisika',
+        description: 'Buat laporan lengkap dari hasil praktikum Hukum Newton. Sertakan grafik dan analisis data.',
         type: AssignmentType.tugas,
         deadline: DateTime.now().add(const Duration(days: 5)),
         courseName: 'Fisika Dasar',
@@ -33,6 +36,7 @@ class AssignmentsView extends StatelessWidget {
       AssignmentModel(
         id: '4',
         title: 'Ujian Tengah Semester',
+        description: 'Jadwal UTS untuk mata kuliah Bahasa Indonesia. Harap datang 15 menit sebelum ujian dimulai.',
         type: AssignmentType.kuis,
         deadline: DateTime.now().add(const Duration(days: 7)),
         courseName: 'Bahasa Indonesia',
@@ -49,13 +53,13 @@ class AssignmentsView extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(height: 12),
         itemBuilder: (context, index) {
           final item = assignments[index];
-          return _buildAssignmentCard(item);
+          return _buildAssignmentCard(context, item);
         },
       ),
     );
   }
 
-  Widget _buildAssignmentCard(AssignmentModel item) {
+  Widget _buildAssignmentCard(BuildContext context, AssignmentModel item) {
     // Calculate days remaining
     final daysLeft = item.deadline.difference(DateTime.now()).inDays;
     final hoursLeft = item.deadline.difference(DateTime.now()).inHours;
@@ -89,84 +93,94 @@ class AssignmentsView extends StatelessWidget {
     }
 
     return Card(
+      clipBehavior: Clip.hardEdge,
       elevation: 0,
        shape: RoundedRectangleBorder(
         side: BorderSide(color: Colors.grey.shade200),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/assignment-detail',
+            arguments: item,
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: iconColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: iconColor),
               ),
-              child: Icon(icon, color: iconColor),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          typeLabel,
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.bold,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            typeLabel,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey.shade700,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        timeRemaining,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: timeColor,
-                          fontWeight: FontWeight.w500,
+                        const Spacer(),
+                        Text(
+                          timeRemaining,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: timeColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    item.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    item.courseName,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey.shade600,
+                    const SizedBox(height: 4),
+                    Text(
+                      item.courseName,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Deadline: ${DateFormat('EEE, d MMM y, HH:mm').format(item.deadline)}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade500,
+                    const SizedBox(height: 8),
+                    Text(
+                      'Deadline: ${DateFormat('EEE, d MMM y, HH:mm').format(item.deadline)}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade500,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

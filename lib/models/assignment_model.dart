@@ -6,6 +6,7 @@ enum AssignmentType {
 class AssignmentModel {
   final String id;
   final String title;
+  final String description; // New field
   final AssignmentType type;
   final DateTime deadline;
   final String courseName;
@@ -14,6 +15,7 @@ class AssignmentModel {
   AssignmentModel({
     required this.id,
     required this.title,
+    required this.description, // Required
     required this.type,
     required this.deadline,
     required this.courseName,

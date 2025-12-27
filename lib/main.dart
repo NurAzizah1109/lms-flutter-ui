@@ -7,6 +7,9 @@ import 'views/class_detail_view.dart';
 import 'views/announcement_detail_view.dart';
 import 'views/material_detail_view.dart';
 import 'views/assignments_view.dart';
+import 'views/assignment_detail_view.dart';
+import 'views/quiz_result_view.dart';
+import 'views/quiz_review_view.dart';
 
 void main() {
   runApp(const LMSApp());
@@ -31,6 +34,9 @@ class LMSApp extends StatelessWidget {
         '/announcement-detail': (context) => const AnnouncementDetailView(),
         '/material-detail': (context) => const MaterialDetailView(),
         '/assignments': (context) => const AssignmentsView(),
+        '/assignment-detail': (context) => const AssignmentDetailView(),
+        '/quiz-result': (context) => const QuizResultView(),
+        '/quiz-review': (context) => const QuizReviewView(),
       },
     );
   }
