@@ -95,9 +95,7 @@ class ProfileView extends StatelessWidget {
           icon: Icons.edit,
           title: 'Edit Profil',
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Fitur Edit Profil belum tersedia.')),
-            );
+            Navigator.pushNamed(context, '/edit-profile');
           },
         ),
         _buildMenuItem(

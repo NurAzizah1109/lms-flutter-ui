@@ -10,6 +10,7 @@ import 'views/assignments_view.dart';
 import 'views/assignment_detail_view.dart';
 import 'views/quiz_result_view.dart';
 import 'views/quiz_review_view.dart';
+import 'views/edit_profile_view.dart';
 
 void main() {
   runApp(const LMSApp());
@@ -37,6 +38,7 @@ class LMSApp extends StatelessWidget {
         '/assignment-detail': (context) => const AssignmentDetailView(),
         '/quiz-result': (context) => const QuizResultView(),
         '/quiz-review': (context) => const QuizReviewView(),
+        '/edit-profile': (context) => const EditProfileView(),
       },
     );
   }
