@@ -5,6 +5,7 @@ import 'views/dashboard_view.dart';
 import 'views/splash_view.dart';
 import 'views/class_detail_view.dart';
 import 'views/announcement_detail_view.dart';
+import 'views/material_detail_view.dart';
 
 void main() {
   runApp(const LMSApp());
@@ -27,6 +28,7 @@ class LMSApp extends StatelessWidget {
         '/dashboard': (context) => const DashboardView(),
         '/class-detail': (context) => const ClassDetailView(),
         '/announcement-detail': (context) => const AnnouncementDetailView(),
+        '/material-detail': (context) => const MaterialDetailView(),
       },
     );
   }
